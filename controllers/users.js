@@ -70,16 +70,18 @@ const usersPatch = (req, res = response) => {
 
 const usersDelete = async (req, res = response) => {
   const { id } = req.params;
-
+  //const uid = req.uid;
+  
   //delete it physically - Not recommended becuase it might affected relationships with other collections
   //const user = await User.findByIdAndDelete(id);
 
   //recommended is to change a state property to false if the user is no longer needed
-  const user = await User.findByIdAndUpdate(id, {state:false});
-
+  const user = await User.findByIdAndUpdate(id, { state: false });
+  const authenticatedUser = req.user;
 
   res.json({
     user,
+    authenticatedUser,
   });
 };
 
